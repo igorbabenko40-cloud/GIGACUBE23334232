@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>GIGACUBE | Minecraft сервер</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  font-family:Arial, Helvetica, sans-serif;
+  color:#e5e7eb;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 20% 20%, #22c55e55, transparent 40%),
+    radial-gradient(circle at 80% 10%, #3b82f655, transparent 40%),
+    radial-gradient(circle at 50% 80%, #a855f755, transparent 40%),
+    linear-gradient(180deg, #020617, #020617);
+}
+
+/* Top bar */
+.topbar{
+  position:fixed;
+  top:0; left:0; right:0;
+  height:70px;
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  padding:0 30px;
+  backdrop-filter:blur(12px);
+  background:rgba(2,6,23,.65);
+  z-index:1000;
+}
+.topbar a{
+  margin-left:15px;
+  text-decoration:none;
+  padding:10px 18px;
+  border-radius:12px;
+  font-weight:600;
+  transition:.25s;
+}
+.topbar a:hover{transform:translateY(-2px);}
+.discord{background:#5865F2;color:white;}
+.telegram{background:#22c55e;color:#020617;}
+.rules{border:1px solid #22c55e;color:#22c55e;}
+
+/* Header */
+header{
+  padding:120px 20px 60px;
+  text-align:center;
+}
+header h1{
+  font-size:64px;
+  margin:0;
+  background:linear-gradient(90deg,#22c55e,#3b82f6,#a855f7);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+header p{font-size:20px;margin-top:15px;color:#d1d5db;}
+
+/* Section */
+section{max-width:1100px;margin:auto;padding:40px 20px;}
+.card{
+  background:rgba(2,6,23,.85);
+  border-radius:20px;
+  padding:30px;
+  margin-bottom:30px;
+  box-shadow:0 20px 60px rgba(0,0,0,.6);
+}
+.tabs{display:flex;gap:15px;flex-wrap:wrap;margin-bottom:25px;}
+.tab{
+  padding:12px 22px;
+  border-radius:14px;
+  border:1px solid #22c55e;
+  cursor:pointer;
+  font-weight:600;
+}
+.tab.active{background:#22c55e;color:#020617;}
+
+.grid{display:none;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;}
+.grid.active{display:grid;}
+
+.shop{
+  background:rgba(2,6,23,.9);
+  border:1px solid #22c55e55;
+  border-radius:16px;
+  padding:15px;
+  text-align:center;
+  cursor:pointer;
+  transition:.3s;
+}
+.shop:hover{
+  transform:translateY(-6px);
+  box-shadow:0 0 30px #22c55e66;
+}
+
+/* Buttons */
+.btn{
+  display:inline-block;
+  padding:12px 20px;
+  background:#22c55e;
+  color:#020617;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+/* Footer */
+footer{
+  text-align:center;
+  padding:30px;
+  background:#020617;
+  color:#9ca3af;
+}
+
+/* Modal */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  justify-content:center;
+  align-items:center;
+}
+.modal-box{
+  background:#020617;
+  padding:35px;
+  border-radius:20px;
+  max-width:400px;
+  width:90%;
+  text-align:center;
+}
+.close{float:right;cursor:pointer;font-size:22px;}
+</style>
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="topbar">
+  <a href="#rules" class="rules">Правила</a>
+  <a href="https://discord.gg/" target="_blank" class="discord">Discord</a>
+  <a href="https://t.me/FREEGIGACUBE" target="_blank" class="telegram">Telegram</a>
+</div>
+
+<!-- Header -->
+<header>
+  <h1>GIGACUBE</h1>
+  <p>🔥 Гриф | PvP | Донат без обмана</p>
+</header>
+
+<section>
+<div class="card">
+  <h2>📌 IP сервера</h2>
+  <p style="cursor:pointer;color:#22c55e"
+     onclick="navigator.clipboard.writeText('start.gigacube.host')">
+     start.gigacube.host (нажми чтобы скопировать)
+  </p>
+</div>
+
+<div class="card">
+  <div class="tabs">
+    <div class="tab active" onclick="openTab('donate',this)">Привилегии</div>
+    <div class="tab" onclick="openTab('cases',this)">Кейсы</div>
+    <div class="tab" onclick="openTab('other',this)">Другое</div>
+  </div>
+
+  <!-- Привилегии -->
+  <div class="grid active" id="donate">
+    <div class="shop" data-name="DRAGON" data-price="30 ₽">DRAGON<br>30 ₽</div>
+    <div class="shop" data-name="BULL" data-price="45 ₽">BULL<br>45 ₽</div>
+    <div class="shop" data-name="BANNI" data-price="75 ₽">BANNI<br>75 ₽</div>
+    <div class="shop" data-name="TIGER" data-price="110 ₽">TIGER<br>110 ₽</div>
+    <div class="shop" data-name="VAMPIRE" data-price="175 ₽">VAMPIRE<br>175 ₽</div>
+    <div class="shop" data-name="RABBIT" data-price="220 ₽">RABBIT<br>220 ₽</div>
+    <div class="shop" data-name="HYDRA" data-price="279 ₽">HYDRA<br>279 ₽</div>
+    <div class="shop" data-name="DHELPER" data-price="338 ₽">DHELPER<br>338 ₽</div>
+    <div class="shop" data-name="COBRA" data-price="360 ₽">COBRA<br>360 ₽</div>
+    <div class="shop" data-name="GOD" data-price="400 ₽">GOD<br>400 ₽</div>
+  </div>
+
+  <!-- Кейсы -->
+  <div class="grid" id="cases">
+    <div class="shop" data-name="Кейс с риликами" data-price="30 ₽">Кейс с риликами<br>30 ₽</div>
+    <div class="shop" data-name="Кейс с китами" data-price="40 ₽">Кейс с китами<br>40 ₽</div>
+    <div class="shop" data-name="Кейс с валютой" data-price="43 ₽">Кейс с валютой<br>43 ₽</div>
+    <div class="shop" data-name="Кейс с дон вещами" data-price="50 ₽">Кейс с дон вещами<br>50 ₽</div>
+    <div class="shop" data-name="Супер кейс" data-price="70 ₽">Супер кейс<br>70 ₽</div>
+    <div class="shop" data-name="Новогодний кейс" data-price="70 ₽">Новогодний кейс<br>70 ₽</div>
+  </div>
+
+  <!-- Другое -->
+  <div class="grid" id="other">
+    <div class="shop" data-name="Разбан" data-price="100 ₽">Разбан<br>100 ₽</div>
+    <div class="shop" data-name="Размут" data-price="50 ₽">Размут<br>50 ₽</div>
+  </div>
+</div>
+</section>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <span class="close" onclick="modal.style.display='none'">✖</span>
+    <h3 id="mname"></h3>
+    <p id="mprice"></p>
+    <p><b>@MrVex443</b></p>
+    <p>Купить донат — пиши сюда</p>
+  </div>
+</div>
+
+<script>
+function openTab(id,el){
+  document.querySelectorAll('.grid').forEach(g=>g.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  el.classList.add('active');
+}
+
+const modal=document.getElementById('modal');
+document.querySelectorAll('.shop').forEach(s=>{
+  s.onclick=()=>{
+    document.getElementById('mname').innerText=s.dataset.name;
+    document.getElementById('mprice').innerText='Цена: '+s.dataset.price;
+    modal.style.display='flex';
+  }
+});
+</script>
+
+</body>
+</html>
