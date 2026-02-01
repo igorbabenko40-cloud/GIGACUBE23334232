@@ -6,115 +6,126 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{box-sizing:border-box;}
+:root{
+  --bg:#020617;
+  --card:#020617;
+  --text:#e5e7eb;
+  --accent:#22c55e;
+}
+.light{
+  --bg:#f3f4f6;
+  --card:#ffffff;
+  --text:#020617;
+}
+
+*{box-sizing:border-box}
 body{
   margin:0;
-  font-family:Arial, Helvetica, sans-serif;
-  color:#e5e7eb;
-  min-height:100vh;
-  background:
-    radial-gradient(circle at 20% 20%, #22c55e55, transparent 40%),
-    radial-gradient(circle at 80% 10%, #3b82f655, transparent 40%),
-    radial-gradient(circle at 50% 80%, #a855f755, transparent 40%),
-    linear-gradient(180deg, #020617, #020617);
+  font-family:Arial,Helvetica,sans-serif;
+  background:radial-gradient(circle at top,#052e16,var(--bg));
+  color:var(--text);
+  transition:.4s;
 }
 
-/* Top bar */
-.topbar{
-  position:fixed;
-  top:0; left:0; right:0;
-  height:70px;
-  display:flex;
-  align-items:center;
-  justify-content:flex-end;
-  padding:0 30px;
-  backdrop-filter:blur(12px);
-  background:rgba(2,6,23,.65);
-  z-index:1000;
-}
-.topbar a{
-  margin-left:15px;
-  text-decoration:none;
-  padding:10px 18px;
-  border-radius:12px;
-  font-weight:600;
-  transition:.25s;
-}
-.topbar a:hover{transform:translateY(-2px);}
-.discord{background:#5865F2;color:white;}
-.telegram{background:#22c55e;color:#020617;}
-.rules{border:1px solid #22c55e;color:#22c55e;}
-
-/* Header */
+/* HEADER */
 header{
-  padding:120px 20px 60px;
-  text-align:center;
+  padding:30px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
 }
-header h1{
-  font-size:64px;
-  margin:0;
-  background:linear-gradient(90deg,#22c55e,#3b82f6,#a855f7);
+.logo{
+  font-size:36px;
+  font-weight:900;
+  background:linear-gradient(90deg,#22c55e,#4ade80);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+  text-shadow:0 0 20px rgba(34,197,94,.6);
 }
-header p{font-size:20px;margin-top:15px;color:#d1d5db;}
+.topbtns button{margin-left:8px}
 
-/* Section */
-section{max-width:1100px;margin:auto;padding:40px 20px;}
-.card{
-  background:rgba(2,6,23,.85);
-  border-radius:20px;
-  padding:30px;
-  margin-bottom:30px;
-  box-shadow:0 20px 60px rgba(0,0,0,.6);
-}
-.tabs{display:flex;gap:15px;flex-wrap:wrap;margin-bottom:25px;}
-.tab{
-  padding:12px 22px;
-  border-radius:14px;
-  border:1px solid #22c55e;
+/* BUTTON */
+.btn{
+  padding:10px 16px;
+  background:var(--accent);
+  border:none;
+  border-radius:10px;
   cursor:pointer;
-  font-weight:600;
+  font-weight:bold;
+  transition:.25s;
 }
-.tab.active{background:#22c55e;color:#020617;}
+.btn:hover{
+  transform:scale(1.07);
+  box-shadow:0 0 20px rgba(34,197,94,.7);
+}
 
-.grid{display:none;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;}
-.grid.active{display:grid;}
-
-.shop{
-  background:rgba(2,6,23,.9);
-  border:1px solid #22c55e55;
+/* CARD */
+.card{
+  background:var(--card);
+  margin:20px;
+  padding:20px;
   border-radius:16px;
-  padding:15px;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
+  transition:.4s;
+}
+
+/* FEATURES */
+.feature-icon{
+  filter:drop-shadow(0 0 6px var(--accent));
+  margin-right:6px;
+}
+
+/* TABS */
+.tabs{display:flex;gap:10px;flex-wrap:wrap}
+.tab{
+  padding:8px 14px;
+  border-radius:10px;
+  border:1px solid var(--accent);
+  cursor:pointer;
+}
+.tab.active{background:var(--accent);color:#000}
+
+/* GRID */
+.grid{
+  display:none;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:15px;
+  margin-top:15px;
+}
+.grid.active{display:grid}
+
+/* SHOP */
+.shop{
+  position:relative;
+  border:1px solid var(--accent);
+  border-radius:14px;
+  padding:16px;
   text-align:center;
   cursor:pointer;
   transition:.3s;
 }
 .shop:hover{
-  transform:translateY(-6px);
-  box-shadow:0 0 30px #22c55e66;
+  transform:translateY(-5px);
+  box-shadow:0 0 25px rgba(34,197,94,.6);
+}
+.shop.hit{
+  border:2px solid gold;
+}
+.shop.hit::after{
+  content:'ХИТ';
+  position:absolute;
+  top:8px;
+  right:8px;
+  background:gold;
+  color:black;
+  padding:2px 8px;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:700;
 }
 
-/* Buttons */
-.btn{
-  display:inline-block;
-  padding:12px 20px;
-  background:#22c55e;
-  color:#020617;
-  border-radius:12px;
-  text-decoration:none;
-  font-weight:bold;
-}
-
-/* Footer */
-footer{
-  text-align:center;
-  padding:30px;
-  background:#020617;
-  color:#9ca3af;
-}
-
-/* Modal */
+/* MODAL */
 .modal{
   display:none;
   position:fixed;
@@ -122,40 +133,71 @@ footer{
   background:rgba(0,0,0,.7);
   justify-content:center;
   align-items:center;
+  z-index:100;
 }
 .modal-box{
-  background:#020617;
-  padding:35px;
-  border-radius:20px;
-  max-width:400px;
+  background:var(--card);
+  padding:25px;
+  border-radius:16px;
   width:90%;
-  text-align:center;
+  max-width:480px;
+  position:relative;
+  max-height:90vh;
+  overflow:auto;
 }
-.close{float:right;cursor:pointer;font-size:22px;}
+
+/* RULE COLORS */
+.mute{color:#facc15}
+.ban{color:#ef4444}
+.perma{color:#b91c1c;font-weight:700}
+
+/* ONLINE */
+#online{
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{
+  0%{opacity:1}
+  50%{opacity:.6}
+  100%{opacity:1}
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  header{flex-direction:column;gap:10px}
+}
 </style>
 </head>
+
 <body>
 
-<!-- Top Bar -->
-<div class="topbar">
-  <a href="#rules" class="rules">Правила</a>
-  <a href="https://discord.gg/" target="_blank" class="discord">Discord</a>
-  <a href="https://t.me/FREEGIGACUBE" target="_blank" class="telegram">Telegram</a>
+<!-- ACCEPT RULES -->
+<div class="modal" id="accept">
+  <div class="modal-box">
+    <h3>📜 Принять правила?</h3>
+    <p>Используя сайт, вы соглашаетесь с правилами сервера.</p>
+    <button class="btn" onclick="accept()">Я согласен</button>
+  </div>
 </div>
 
-<!-- Header -->
 <header>
-  <h1>GIGACUBE</h1>
-  <p>🔥 Гриф | PvP | Донат без обмана</p>
+  <div class="logo">GIGACUBE</div>
+  <div class="topbtns">
+    <button class="btn" onclick="toggleTheme()">🌙 / ☀️</button>
+    <button class="btn" onclick="openRules()">Правила</button>
+  </div>
 </header>
 
-<section>
 <div class="card">
-  <h2>📌 IP сервера</h2>
-  <p style="cursor:pointer;color:#22c55e"
-     onclick="navigator.clipboard.writeText('start.gigacube.host')">
-     start.gigacube.host (нажми чтобы скопировать)
+  <h3>📡 IP сервера</h3>
+  <p style="cursor:pointer;color:var(--accent)" onclick="copyIP()">
+    start.gigacube.host (нажми чтобы скопировать)
   </p>
+  <p id="online">🟢 Онлайн: 24/7</p>
+</div>
+
+<div class="card">
+  <h3><span class="feature-icon">🛡</span>Адекватная администрация</h3>
+  <p>Честное модерирование, помощь игрокам и справедливые наказания</p>
 </div>
 
 <div class="card">
@@ -165,64 +207,143 @@ footer{
     <div class="tab" onclick="openTab('other',this)">Другое</div>
   </div>
 
-  <!-- Привилегии -->
+  <!-- PRIVILEGES -->
   <div class="grid active" id="donate">
-    <div class="shop" data-name="DRAGON" data-price="30 ₽">DRAGON<br>30 ₽</div>
-    <div class="shop" data-name="BULL" data-price="45 ₽">BULL<br>45 ₽</div>
-    <div class="shop" data-name="BANNI" data-price="75 ₽">BANNI<br>75 ₽</div>
-    <div class="shop" data-name="TIGER" data-price="110 ₽">TIGER<br>110 ₽</div>
-    <div class="shop" data-name="VAMPIRE" data-price="175 ₽">VAMPIRE<br>175 ₽</div>
-    <div class="shop" data-name="RABBIT" data-price="220 ₽">RABBIT<br>220 ₽</div>
-    <div class="shop" data-name="HYDRA" data-price="279 ₽">HYDRA<br>279 ₽</div>
-    <div class="shop" data-name="DHELPER" data-price="338 ₽">DHELPER<br>338 ₽</div>
-    <div class="shop" data-name="COBRA" data-price="360 ₽">COBRA<br>360 ₽</div>
-    <div class="shop" data-name="GOD" data-price="400 ₽">GOD<br>400 ₽</div>
+    <div class="shop" onclick="buy('Dragon',30)">Dragon<br>30 ₽</div>
+    <div class="shop" onclick="buy('Bull',45)">Bull<br>45 ₽</div>
+    <div class="shop" onclick="buy('Bani',75)">Bani<br>75 ₽</div>
+    <div class="shop hit" onclick="buy('Tiger',110)">Tiger<br>110 ₽</div>
+    <div class="shop hit" onclick="buy('Vampire',175)">Vampire<br>175 ₽</div>
+    <div class="shop" onclick="buy('Rabbit',220)">Rabbit<br>220 ₽</div>
+    <div class="shop" onclick="buy('Hydra',279)">Hydra<br>279 ₽</div>
+    <div class="shop" onclick="buy('D-Helper',338)">D-Helper<br>338 ₽</div>
+    <div class="shop" onclick="buy('Cobra',360)">Cobra<br>360 ₽</div>
+    <div class="shop" onclick="buy('God',400)">God<br>400 ₽</div>
   </div>
 
-  <!-- Кейсы -->
+  <!-- CASES -->
   <div class="grid" id="cases">
-    <div class="shop" data-name="Кейс с риликами" data-price="30 ₽">Кейс с риликами<br>30 ₽</div>
-    <div class="shop" data-name="Кейс с китами" data-price="40 ₽">Кейс с китами<br>40 ₽</div>
-    <div class="shop" data-name="Кейс с валютой" data-price="43 ₽">Кейс с валютой<br>43 ₽</div>
-    <div class="shop" data-name="Кейс с дон вещами" data-price="50 ₽">Кейс с дон вещами<br>50 ₽</div>
-    <div class="shop" data-name="Супер кейс" data-price="70 ₽">Супер кейс<br>70 ₽</div>
-    <div class="shop" data-name="Новогодний кейс" data-price="70 ₽">Новогодний кейс<br>70 ₽</div>
+    <div class="shop" onclick="buy('Кейс с реликвиями',30)">Кейс с реликвиями<br>30 ₽</div>
+    <div class="shop" onclick="buy('Кейс с китами',40)">Кейс с китами<br>40 ₽</div>
+    <div class="shop" onclick="buy('Кейс с валютой',43)">Кейс с валютой<br>43 ₽</div>
+    <div class="shop" onclick="buy('Кейс с донат вещами',50)">Кейс с донат вещами<br>50 ₽</div>
+    <div class="shop hit" onclick="buy('Супер кейс',70)">Супер кейс<br>70 ₽</div>
+    <div class="shop" onclick="buy('Новогодний кейс',70)">Новогодний кейс<br>70 ₽</div>
   </div>
 
-  <!-- Другое -->
+  <!-- OTHER -->
   <div class="grid" id="other">
-    <div class="shop" data-name="Разбан" data-price="100 ₽">Разбан<br>100 ₽</div>
-    <div class="shop" data-name="Размут" data-price="50 ₽">Размут<br>50 ₽</div>
+    <div class="shop" onclick="buy('Разбан',100)">Разбан<br>100 ₽</div>
+    <div class="shop" onclick="buy('Размут',50)">Размут<br>50 ₽</div>
   </div>
 </div>
-</section>
 
-<div class="modal" id="modal">
+<!-- BUY MODAL -->
+<div class="modal" id="buy">
   <div class="modal-box">
-    <span class="close" onclick="modal.style.display='none'">✖</span>
-    <h3 id="mname"></h3>
-    <p id="mprice"></p>
-    <p><b>@MrVex443</b></p>
-    <p>Купить донат — пиши сюда</p>
+    <span onclick="closeBuy()" style="position:absolute;top:10px;right:14px;cursor:pointer;font-size:20px;font-weight:bold">✖</span>
+    <h3 id="bname"></h3>
+    <p id="bprice"></p>
+    <p>Купить тут: <b>@MrVex443</b></p>
+    <a class="btn" href="https://t.me/FREEGIGACUBE">Перейти в Telegram</a>
+  </div>
+</div>
+
+<!-- RULES MODAL -->
+<div class="modal" id="rules">
+  <div class="modal-box">
+    <h3>📜 Правила сервера</h3>
+    
+    <details open><summary>Общие правила</summary>
+      <p>- Игрок автоматически соглашается с правилами сервера</p>
+      <p>- Администрация имеет полное право вносить изменения и дополнять правила без предупреждения</p>
+      <p>- Незнание правил не освобождает от ответственности</p>
+      <p>- Администрация вправе забрать донат-привилегию при нарушении правил</p>
+      <p>- Покупка привилегий только через наш сайт</p>
+    </details>
+
+    <details><summary>Чат</summary>
+      <p class="mute">1.1 Флуд — 30 мин</p>
+      <p class="mute">1.1.1 Организация флуда — 2 часа</p>
+      <p class="mute">1.1.2 Массовый спам — 30 мин</p>
+      <p class="mute">1.1.3 Капс 50%+ — 30 мин</p>
+      <p class="mute">1.2 Оскорбления игроков — 2 часа (есть исключения)</p>
+      <p class="mute">1.2.1 Оскорбление сотрудника — 10 часов</p>
+      <p class="mute">1.2.2 Оскорбление администрации — 1 день</p>
+      <p class="mute">1.3 Унижение/угрозы — 1 час</p>
+      <p class="mute">1.4 Дезинформация — 3 часа</p>
+      <p class="mute">1.5 Аморальное поведение/мат — 2 часа</p>
+      <p class="mute">1.6 Публичная критика проекта — 1 день</p>
+      <p class="mute">1.7 Упоминание других проектов — 24 часа</p>
+      <p class="mute">1.8 Пиар кланов с Discord — 24 часа</p>
+      <p class="mute">1.9 Продажа за реальную валюту — 3 дня</p>
+      <p class="mute">1.10 Выдача себя за администрацию — 12 часов</p>
+      <p class="mute">1.11 Попрошайничество — 1 час</p>
+      <p class="mute">1.12 Политическая агитация — 4 часа</p>
+    </details>
+
+    <details><summary>Читы и моды</summary>
+      <p class="ban">2.1 Использование читов — 30 дней</p>
+      <p class="ban">2.2 Отказ/уклон от проверки — 30 дней</p>
+      <p class="ban">2.2.1 Признание использования читов — 20 дней</p>
+      <p class="ban">2.2.2 Полный игнор проверки — 30 дней</p>
+      <p class="ban">2.2.3 Помеха проверки — 30 дней</p>
+      <p class="ban">2.2.4 Удаление читов — 30 дней</p>
+      <p class="ban">2.2.5 Более 3 банов по 2.1,2.2 — 35 дней</p>
+      <p class="ban">2.3 Чистка файлов — 30 дней</p>
+      <p class="ban">2.4 Запрещенные моды — 25 дней</p>
+      <p class="ban">2.5 Тим с читером — 14 дней</p>
+      <p class="ban">2.6 Использование багов — 7 дней</p>
+      <p class="ban">2.6.1 Дюпы — 120 дней</p>
+      <p class="ban">2.6.2 Сокрытие дюпов — 15 дней</p>
+      <p class="perma">2.7 Некорректный ник — навсегда</p>
+      <p class="ban">2.8 Тим+ — 7 дней</p>
+      <p class="ban">2.9 Разбан через сайт — 24 часа на удаление читов</p>
+    </details>
+
+    <details><summary>Другое</summary>
+      <p class="ban">3.0 Спам в /bc — 4 дня</p>
+      <p class="ban">3.1 Аморал/Мат в /bc — 1 день</p>
+      <p class="ban">3.2 Размучивать/разбанивать себя — 7 дней</p>
+      <p class="perma">3.3 Оскорбление проекта — навсегда</p>
+      <p class="ban">3.4 Обход мута через /bc,/sell — 3 дня</p>
+      <p class="ban">3.5 Варпы в ловушках — 7 дней</p>
+      <p class="ban">3.6 Лут эвентов /god,/fly — 7 дней</p>
+      <p class="perma">3.7 Продажа/передача аккаунта — навсегда</p>
+      <p class="perma">3.8 Попытка взлома/передачи аккаунта — навсегда</p>
+      <p class="ban">3.9 Попытка взлома/передачи — до выяснений</p>
+      <p class="ban">4.0 Торговля за реальную валюту — 7 дней</p>
+      <p class="ban">4.1 Обман игроков командами — 10 дней</p>
+      <p class="ban">4.2/4.3 Угроза персоналу — до 3 дней</p>
+    </details>
+
+    <button class="btn" onclick="rules.style.display='none'">Закрыть</button>
   </div>
 </div>
 
 <script>
+const buyM=document.getElementById('buy');
+const rules=document.getElementById('rules');
+const acceptM=document.getElementById('accept');
+
+if(!localStorage.accepted) acceptM.style.display='flex';
+
+function accept(){ localStorage.accepted=true; acceptM.style.display='none'; }
+function copyIP(){ navigator.clipboard.writeText('start.gigacube.host'); alert('IP скопирован'); }
 function openTab(id,el){
   document.querySelectorAll('.grid').forEach(g=>g.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   el.classList.add('active');
 }
-
-const modal=document.getElementById('modal');
-document.querySelectorAll('.shop').forEach(s=>{
-  s.onclick=()=>{
-    document.getElementById('mname').innerText=s.dataset.name;
-    document.getElementById('mprice').innerText='Цена: '+s.dataset.price;
-    modal.style.display='flex';
-  }
-});
+function buy(name,price){
+  document.getElementById('bname').innerText=name;
+  document.getElementById('bprice').innerText='Цена: '+price+' ₽';
+  buyM.style.display='flex';
+}
+function closeBuy(){ buyM.style.display='none'; }
+function openRules(){ rules.style.display='flex'; }
+function toggleTheme(){ document.body.classList.toggle('light'); }
 </script>
 
 </body>
